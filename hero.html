@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minh Đan · Poetry Archive</title>
+<meta name="description" content="Không gian thơ của nhà thơ Minh Đan — hơn 5,000 bài thơ song ngữ Việt-Anh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brown-900: #2C1810;
+    --brown-800: #4A2C1A;
+    --brown-700: #6B3F28;
+    --brown-600: #8B5535;
+    --brown-400: #C4956A;
+    --brown-200: #E8D5C0;
+    --brown-100: #F5ECD8;
+    --cream-50: #FAF6EF;
+    --beige: #F0E6D3;
+    --ink: #2C1810;
+    --muted: #7A6552;
+  }
+
+  html, body {
+    background: var(--cream-50);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* WCAG focus states */
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--brown-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Skip link for screen readers */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    background: var(--brown-900);
+    color: var(--cream-50);
+    padding: 8px 16px;
+    z-index: 100;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    background:
+      radial-gradient(ellipse at top, var(--brown-100) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, var(--beige) 0%, transparent 60%),
+      var(--cream-50);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  /* Decorative watermark */
+  .watermark {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(200px, 35vw, 480px);
+    font-style: italic;
+    color: var(--brown-200);
+    opacity: 0.35;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+    animation: watermarkFloat 8s ease-in-out infinite;
+  }
+  @keyframes watermarkFloat {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -52%) scale(1.02); }
+  }
+
+  /* Decorative ink strokes */
+  .ink-stroke {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.15;
+    z-index: 0;
+  }
+  .ink-stroke svg { width: 100%; height: 100%; }
+  .ink-1 { top: 8%; left: 4%; width: 200px; height: 200px; transform: rotate(-15deg); }
+  .ink-2 { bottom: 12%; right: 5%; width: 220px; height: 220px; transform: rotate(20deg); }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    animation: fadeUp 1.2s ease-out;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brown-700);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-family: 'Lora', serif;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--brown-900);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--brown-700);
+    font-weight: 500;
+  }
+
+  .hero-subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.5rem 0 2.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-style: italic;
+    color: var(--brown-800);
+    line-height: 1.7;
+    margin: 0 auto 0.75rem;
+    max-width: 600px;
+  }
+  .hero-quote-en {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+  .hero-attribution {
+    font-size: 0.85rem;
+    color: var(--brown-600);
+    letter-spacing: 0.1em;
+  }
+
+  /* Stats row */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+    color: var(--brown-800);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brown-700);
+    margin-top: 0.5rem;
+    display: block;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--brown-400);
+    align-self: center;
+    opacity: 0.5;
+  }
+
+  /* CTAs */
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    padding: 0.85rem 2rem;
+    border-radius: 32px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--brown-800);
+    color: var(--cream-50);
+    border-color: var(--brown-800);
+  }
+  .btn-primary:hover {
+    background: var(--brown-900);
+    border-color: var(--brown-900);
+    transform: translateY(-2px);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--brown-800);
+    border-color: var(--brown-600);
+  }
+  .btn-secondary:hover {
+    background: var(--brown-200);
+    transform: translateY(-2px);
+  }
+
+  /* Scroll cue */
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brown-700);
+    text-decoration: none;
+    animation: bounce 2.5s infinite;
+  }
+  .scroll-cue::after {
+    content: '↓';
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(8px); }
+    60% { transform: translateX(-50%) translateY(4px); }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .hero { padding: 3rem 1.25rem; }
+    .stat-divider { display: none; }
+    .hero-stats { gap: 2rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; max-width: 280px; margin-left: auto; margin-right: auto; }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Bỏ qua đến nội dung chính</a>
+
+<section class="hero" role="banner" aria-label="Trang chủ Minh Đan Poetry">
+  <span class="watermark" aria-hidden="true">thơ</span>
+
+  <div class="ink-stroke ink-1" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M10,50 Q30,20 50,50 T90,50" stroke="#6B3F28" stroke-width="0.8" fill="none" stroke-linecap="round"/></svg>
+  </div>
+  <div class="ink-stroke ink-2" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M20,80 Q40,30 60,60 T90,40" stroke="#6B3F28" stroke-width="0.8" fill="none" stroke-linecap="round"/></svg>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Nhà thơ · Poet · Vietnam</p>
+
+    <h1 class="hero-title">Minh <em>Đan</em></h1>
+
+    <p class="hero-subtitle">Thi tập song ngữ Việt – Anh<br>A Bilingual Poetry Archive</p>
+
+    <p class="hero-quote">
+      "Mỗi bài thơ là một hơi thở để lại trên trang giấy."
+    </p>
+    <p class="hero-quote-en">
+      "Each poem is a breath left on paper."
+    </p>
+    <p class="hero-attribution">— MINH ĐAN</p>
+
+    <div class="hero-stats" role="group" aria-label="Thống kê tổng quan">
+      <div class="stat">
+        <span class="stat-num">5,000<span style="font-size:1.5rem;">+</span></span>
+        <span class="stat-label">Bài thơ · Poems</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">12<span style="font-size:1.5rem;">+</span></span>
+        <span class="stat-label">Tập thơ · Collections</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">20<span style="font-size:1.5rem;">+</span></span>
+        <span class="stat-label">Năm sáng tác · Years</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#library" class="btn btn-primary">Khám phá thi tập / Explore</a>
+      <a href="#about" class="btn btn-secondary">Về tác giả / About</a>
+    </div>
+  </div>
+
+  <a href="#main" class="scroll-cue" aria-label="Cuộn xuống để xem nội dung">
+    Cuộn xuống · Scroll
+  </a>
+</section>
+
+<main id="main"></main>
+
+</body>
+</html>
