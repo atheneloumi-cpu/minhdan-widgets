@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minh Đan · Thi Tập / Poetry Archive</title>
+<meta name="description" content="Không gian thơ song ngữ Việt – Anh của nhà thơ Minh Đan. Hơn 5,000 bài thơ được lưu trữ theo dòng thời gian, theo tập, theo chủ đề.">
+<meta property="og:title" content="Minh Đan · Thi Tập">
+<meta property="og:description" content="Không gian thơ song ngữ Việt – Anh.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brown-900: #2C1810;
+    --brown-800: #4A2C1A;
+    --brown-700: #6B3F28;
+    --brown-600: #8B5535;
+    --brown-400: #C4956A;
+    --brown-200: #E8D5C0;
+    --brown-100: #F5ECD8;
+    --cream-50: #FAF6EF;
+    --beige: #F0E6D3;
+    --ink: #2C1810;
+    --muted: #7A6552;
+    --shadow-sm: 0 2px 8px rgba(74, 44, 26, 0.06);
+    --shadow-md: 0 4px 16px rgba(74, 44, 26, 0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+  html, body {
+    background: var(--cream-50);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--brown-600);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    background: var(--brown-900);
+    color: var(--cream-50);
+    padding: 8px 16px;
+    z-index: 1000;
+    text-decoration: none;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* === NAV === */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 246, 239, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--brown-200);
+    padding: 1rem 0;
+    transition: padding 0.3s ease;
+  }
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--brown-900);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo strong { font-weight: 500; }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+    color: var(--brown-700);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease;
+    position: relative;
+    padding: 4px 0;
+  }
+  .nav-links a:hover { color: var(--brown-900); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--brown-700);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .lang-toggle {
+    font-size: 0.75rem;
+    background: var(--brown-200);
+    color: var(--brown-800);
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: 'Lora', serif;
+    letter-spacing: 0.08em;
+    transition: background 0.2s ease;
+  }
+  .lang-toggle:hover { background: var(--brown-400); color: var(--cream-50); }
+
+  .nav-mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--brown-800);
+    font-size: 1.5rem;
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    background:
+      radial-gradient(ellipse at top, var(--brown-100) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, var(--beige) 0%, transparent 60%),
+      var(--cream-50);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .watermark {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(200px, 35vw, 480px);
+    font-style: italic;
+    color: var(--brown-200);
+    opacity: 0.35;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+    animation: watermarkFloat 8s ease-in-out infinite;
+  }
+  @keyframes watermarkFloat {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -52%) scale(1.02); }
+  }
+  .ink-stroke { position: absolute; pointer-events: none; opacity: 0.15; z-index: 0; }
+  .ink-stroke svg { width: 100%; height: 100%; }
+  .ink-1 { top: 8%; left: 4%; width: 200px; height: 200px; transform: rotate(-15deg); }
+  .ink-2 { bottom: 12%; right: 5%; width: 220px; height: 220px; transform: rotate(20deg); }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; animation: fadeUp 1.2s ease-out; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--brown-700);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--brown-900);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-title em { font-style: italic; color: var(--brown-700); font-weight: 500; }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.5rem 0 2.5rem;
+    letter-spacing: 0.05em;
+  }
+  .hero-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-style: italic;
+    color: var(--brown-800);
+    line-height: 1.7;
+    margin: 0 auto 0.75rem;
+    max-width: 600px;
+  }
+  .hero-quote-en { font-size: 0.95rem; font-style: italic; color: var(--muted); margin-bottom: 2rem; }
+  .hero-attribution { font-size: 0.85rem; color: var(--brown-600); letter-spacing: 0.1em; }
+
+  .hero-stats { display: flex; justify-content: center; gap: 3.5rem; margin-top: 3rem; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+    color: var(--brown-800);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brown-700);
+    margin-top: 0.5rem;
+    display: block;
+  }
+  .stat-divider { width: 1px; height: 40px; background: var(--brown-400); align-self: center; opacity: 0.5; }
+
+  .hero-actions { display: flex; justify-content: center; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; }
+  .btn {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    padding: 0.85rem 2rem;
+    border-radius: 32px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: inline-block;
+  }
+  .btn-primary { background: var(--brown-800); color: var(--cream-50); border-color: var(--brown-800); }
+  .btn-primary:hover { background: var(--brown-900); border-color: var(--brown-900); transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: var(--brown-800); border-color: var(--brown-600); }
+  .btn-secondary:hover { background: var(--brown-200); transform: translateY(-2px); }
+
+  /* === GENERIC SECTION === */
+  .section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brown-700);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 400;
+    text-align: center;
+    color: var(--brown-900);
+    margin-bottom: 0.5rem;
+    line-height: 1.15;
+  }
+  .section-title em { font-style: italic; color: var(--brown-700); }
+  .section-subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  /* === POEM OF THE DAY === */
+  .poem-of-day {
+    background: var(--beige);
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .poem-of-day::before, .poem-of-day::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--brown-200);
+  }
+  .poem-of-day::before { top: 0; }
+  .poem-of-day::after { bottom: 0; }
+  .poem-card-feature {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .poem-feature-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brown-600);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .poem-feature-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    color: var(--brown-900);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .poem-feature-body {
+    font-size: 1.15rem;
+    color: var(--brown-800);
+    line-height: 2.2;
+    font-style: italic;
+    margin: 0 auto 1.5rem;
+    max-width: 540px;
+    white-space: pre-line;
+  }
+  .poem-feature-meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+  }
+  .poem-feature-meta a { color: var(--brown-700); margin-left: 1rem; }
+
+  /* === EXPLORE 3 CARDS === */
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .explore-card {
+    background: white;
+    border: 0.5px solid var(--brown-200);
+    border-radius: 12px;
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .explore-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--brown-400);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .explore-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--brown-400);
+    box-shadow: var(--shadow-md);
+  }
+  .explore-card:hover::before { transform: scaleX(1); }
+  .explore-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .explore-card-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    color: var(--brown-900);
+    margin-bottom: 0.5rem;
+  }
+  .explore-card-en {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .explore-card-desc {
+    font-size: 0.95rem;
+    color: var(--brown-700);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .explore-card-cta {
+    color: var(--brown-700);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* === COLLECTIONS === */
+  .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .collection-card {
+    background: white;
+    border: 0.5px solid var(--brown-200);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+  .collection-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--brown-400);
+  }
+  .collection-cover {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .cover-1 { background: linear-gradient(135deg, #6B3F28 0%, #C4956A 100%); }
+  .cover-2 { background: linear-gradient(135deg, #4A2C1A 0%, #8B5535 60%, #E8D5C0 100%); }
+  .cover-3 { background: linear-gradient(135deg, #8B5535 0%, #2C1810 100%); }
+  .cover-watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: rgba(250, 246, 239, 0.25);
+    font-size: 4rem;
+  }
+  .collection-info { padding: 1.5rem; }
+  .collection-year { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.5rem; }
+  .collection-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    color: var(--brown-900);
+    margin-bottom: 0.35rem;
+  }
+  .collection-title-en { font-size: 0.9rem; color: var(--muted); font-style: italic; margin-bottom: 0.75rem; }
+  .collection-meta {
+    font-size: 0.85rem;
+    color: var(--brown-700);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 0.5px solid var(--brown-200);
+    margin-top: 1rem;
+  }
+
+  /* === FEATURED POEMS === */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .poem-card-mini {
+    background: white;
+    border: 0.5px solid var(--brown-200);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .poem-card-mini::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--brown-400);
+  }
+  .poem-card-mini:hover {
+    transform: translateX(4px);
+    border-color: var(--brown-400);
+    box-shadow: var(--shadow-sm);
+  }
+  .poem-mini-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .poem-mini-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--brown-900);
+    margin-bottom: 0.5rem;
+  }
+  .poem-mini-excerpt {
+    font-size: 0.9rem;
+    color: var(--brown-700);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+  .poem-mini-meta { font-size: 0.75rem; color: var(--muted); }
+
+  /* === SUBSCRIBE BAND === */
+  .subscribe-band {
+    background: linear-gradient(135deg, var(--brown-800) 0%, var(--brown-900) 100%);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .subscribe-band::before {
+    content: 'thư';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20rem;
+    color: rgba(245, 236, 216, 0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .subscribe-content { position: relative; max-width: 540px; margin: 0 auto; }
+  .subscribe-eyebrow { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brown-400); margin-bottom: 1rem; }
+  .subscribe-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    color: var(--cream-50);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+  .subscribe-title em { font-style: italic; color: var(--brown-200); }
+  .subscribe-desc { color: var(--brown-200); font-size: 1rem; margin-bottom: 2rem; line-height: 1.7; }
+  .subscribe-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 440px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  .subscribe-input {
+    flex: 1;
+    padding: 0.85rem 1.25rem;
+    border-radius: 32px;
+    border: 1px solid var(--brown-600);
+    background: var(--cream-50);
+    color: var(--brown-900);
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    min-width: 200px;
+  }
+  .subscribe-input:focus { outline: 2px solid var(--brown-400); outline-offset: 2px; }
+  .subscribe-btn {
+    background: var(--cream-50);
+    color: var(--brown-900);
+    border: none;
+    border-radius: 32px;
+    padding: 0.85rem 1.75rem;
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .subscribe-btn:hover { background: var(--brown-200); transform: translateY(-1px); }
+  .subscribe-note {
+    color: var(--brown-400);
+    font-size: 0.8rem;
+    margin-top: 1.25rem;
+    font-style: italic;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    background: var(--brown-900);
+    color: var(--brown-200);
+    padding: 4rem 2rem 2rem;
+  }
+  .footer-container { max-width: 1200px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 0.5px solid var(--brown-700);
+  }
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--cream-50);
+    margin-bottom: 0.5rem;
+  }
+  .footer-brand-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brown-400);
+    margin-bottom: 1rem;
+  }
+  .footer-brand-desc {
+    font-size: 0.9rem;
+    color: var(--brown-200);
+    line-height: 1.7;
+    max-width: 320px;
+  }
+  .footer-col-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-50);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.65rem; }
+  .footer-col a {
+    color: var(--brown-200);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+  .footer-col a:hover { color: var(--cream-50); }
+  .footer-bottom {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--brown-400);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-mobile-toggle { display: block; }
+    .nav-links.open {
+      display: flex;
+      position: absolute;
+      top: 100%;
+      right: 2rem;
+      flex-direction: column;
+      background: var(--cream-50);
+      border: 0.5px solid var(--brown-200);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-md);
+    }
+    .explore-grid, .collections-grid, .featured-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .section { padding: 4rem 1.5rem; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 3rem 1.25rem; }
+    .stat-divider { display: none; }
+    .hero-stats { gap: 2rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; max-width: 280px; margin: 3rem auto 0; }
+    .footer-top { grid-template-columns: 1fr; }
+    .subscribe-form { flex-direction: column; }
+    .subscribe-btn { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Bỏ qua đến nội dung chính</a>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Điều hướng chính">
+  <div class="nav-container">
+    <a href="#" class="nav-logo">Minh <strong>Đan</strong></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#library">Thư viện</a></li>
+      <li><a href="#calendar">Lịch</a></li>
+      <li><a href="#collections">Tập thơ</a></li>
+      <li><a href="#about">Về tác giả</a></li>
+      <li><a href="#contribute">Đóng góp</a></li>
+      <li><button class="lang-toggle" type="button" aria-label="Đổi ngôn ngữ">VI / EN</button></li>
+    </ul>
+    <button class="nav-mobile-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="navLinks" onclick="toggleNav(this)">☰</button>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-label="Giới thiệu trang chủ">
+  <span class="watermark" aria-hidden="true">thơ</span>
+  <div class="ink-stroke ink-1" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M10,50 Q30,20 50,50 T90,50" stroke="#6B3F28" stroke-width="0.8" fill="none" stroke-linecap="round"/></svg>
+  </div>
+  <div class="ink-stroke ink-2" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M20,80 Q40,30 60,60 T90,40" stroke="#6B3F28" stroke-width="0.8" fill="none" stroke-linecap="round"/></svg>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Nhà thơ · Poet · Vietnam</p>
+    <h1 class="hero-title">Minh <em>Đan</em></h1>
+    <p class="hero-subtitle">Thi tập song ngữ Việt – Anh<br>A Bilingual Poetry Archive</p>
+    <p class="hero-quote">"Mỗi bài thơ là một hơi thở để lại trên trang giấy."</p>
+    <p class="hero-quote-en">"Each poem is a breath left on paper."</p>
+    <p class="hero-attribution">— MINH ĐAN</p>
+
+    <div class="hero-stats" role="group" aria-label="Thống kê tổng quan">
+      <div class="stat">
+        <span class="stat-num">5,000<span style="font-size:1.5rem;">+</span></span>
+        <span class="stat-label">Bài thơ · Poems</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">12<span style="font-size:1.5rem;">+</span></span>
+        <span class="stat-label">Tập thơ · Collections</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">20<span style="font-size:1.5rem;">+</span></span>
+        <span class="stat-label">Năm sáng tác · Years</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#poem-of-day" class="btn btn-primary">Đọc bài hôm nay / Today's Poem</a>
+      <a href="#collections" class="btn btn-secondary">Xem các tập thơ / Browse</a>
+    </div>
+  </div>
+</section>
+
+<!-- POEM OF THE DAY -->
+<section class="poem-of-day" id="poem-of-day" aria-label="Bài thơ hôm nay">
+  <article class="poem-card-feature">
+    <p class="poem-feature-tag">Bài thơ hôm nay · Poem of the Day</p>
+    <h2 class="poem-feature-title">Gió qua miền nhớ</h2>
+    <p class="poem-feature-body">Gió về không hỏi ta còn đó không,
+mang theo mùi đất cũ, mưa phương đông.
+Lòng như trang giấy chưa ai viết đến,
+chờ một ngọn bút — hay chỉ chờ không?</p>
+    <p class="poem-feature-meta">
+      <span>Lục bát · 2019</span>
+      <a href="#poem-detail">Đọc đầy đủ →</a>
+    </p>
+  </article>
+</section>
+
+<!-- EXPLORE -->
+<section class="section" id="explore" aria-label="Khám phá">
+  <p class="section-eyebrow">Khám phá · Explore</p>
+  <h2 class="section-title">Ba lối <em>vào thơ</em></h2>
+  <p class="section-subtitle">Three paths into the verses</p>
+
+  <div class="explore-grid">
+    <a href="#collections" class="explore-card">
+      <span class="explore-icon" aria-hidden="true">📚</span>
+      <h3 class="explore-card-title">Theo tập thơ</h3>
+      <p class="explore-card-en">By Collection</p>
+      <p class="explore-card-desc">Mỗi tập là một câu chuyện hoàn chỉnh, một giai đoạn của tâm hồn.</p>
+      <span class="explore-card-cta">Xem thư viện →</span>
+    </a>
+    <a href="#genres" class="explore-card">
+      <span class="explore-icon" aria-hidden="true">🎭</span>
+      <h3 class="explore-card-title">Theo thể loại</h3>
+      <p class="explore-card-en">By Genre</p>
+      <p class="explore-card-desc">Lục bát, tự do, haiku, thất ngôn — mỗi thể loại một nhịp tim riêng.</p>
+      <span class="explore-card-cta">Lọc thể loại →</span>
+    </a>
+    <a href="#calendar" class="explore-card">
+      <span class="explore-icon" aria-hidden="true">📅</span>
+      <h3 class="explore-card-title">Theo lịch</h3>
+      <p class="explore-card-en">By Date</p>
+      <p class="explore-card-desc">Chọn một ngày để đọc bài thơ được sáng tác hôm đó.</p>
+      <span class="explore-card-cta">Mở Calendar →</span>
+    </a>
+  </div>
+</section>
+
+<!-- LATEST COLLECTIONS -->
+<section class="section" id="collections" aria-label="Tập thơ mới nhất">
+  <p class="section-eyebrow">Tập thơ mới nhất · Latest Collections</p>
+  <h2 class="section-title"><em>Những tập</em> gần đây</h2>
+  <p class="section-subtitle">Recent collections from the poet</p>
+
+  <div class="collections-grid">
+    <a href="#col-1" class="collection-card">
+      <div class="collection-cover cover-1"><span class="cover-watermark">Gió</span></div>
+      <div class="collection-info">
+        <p class="collection-year">2019 · 148 bài</p>
+        <h3 class="collection-title">Gió qua miền nhớ</h3>
+        <p class="collection-title-en">Wind Through the Land of Memory</p>
+        <p class="collection-meta">
+          <span>Hoài niệm · Quê hương</span>
+          <span>→</span>
+        </p>
+      </div>
+    </a>
+    <a href="#col-2" class="collection-card">
+      <div class="collection-cover cover-2"><span class="cover-watermark">Mưa</span></div>
+      <div class="collection-info">
+        <p class="collection-year">2021 · 112 bài</p>
+        <h3 class="collection-title">Mưa trên đất lạ</h3>
+        <p class="collection-title-en">Rain on Foreign Soil</p>
+        <p class="collection-meta">
+          <span>Cô đơn · Hoài niệm</span>
+          <span>→</span>
+        </p>
+      </div>
+    </a>
+    <a href="#col-3" class="collection-card">
+      <div class="collection-cover cover-3"><span class="cover-watermark">Đất</span></div>
+      <div class="collection-info">
+        <p class="collection-year">2022 · 97 bài</p>
+        <h3 class="collection-title">Đất và mực</h3>
+        <p class="collection-title-en">Earth and Ink</p>
+        <p class="collection-meta">
+          <span>Thiên nhiên · Triết lý</span>
+          <span>→</span>
+        </p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED POEMS -->
+<section class="section" id="featured" aria-label="Bài thơ nổi bật" style="background: var(--beige); max-width: none; padding-left: 0; padding-right: 0;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+    <p class="section-eyebrow">Bài thơ nổi bật · Featured</p>
+    <h2 class="section-title"><em>Những bài</em> đáng đọc</h2>
+    <p class="section-subtitle">Hand-picked poems by the poet</p>
+
+    <div class="featured-grid">
+      <a href="#poem-1" class="poem-card-mini">
+        <p class="poem-mini-tag">Lục bát · 2018</p>
+        <h3 class="poem-mini-title">Chiều cuối năm</h3>
+        <p class="poem-mini-excerpt">Chiều cuối năm ngồi đếm lá rơi, nghe trong gió có tiếng ai gọi…</p>
+        <p class="poem-mini-meta">12 · 12 · 2018</p>
+      </a>
+      <a href="#poem-2" class="poem-card-mini">
+        <p class="poem-mini-tag">Tự do · 2019</p>
+        <h3 class="poem-mini-title">Mưa không tên</h3>
+        <p class="poem-mini-excerpt">Mưa rơi không cần lý do, như tôi yêu không cần em biết…</p>
+        <p class="poem-mini-meta">04 · 07 · 2019</p>
+      </a>
+      <a href="#poem-3" class="poem-card-mini">
+        <p class="poem-mini-tag">Haiku Việt · 2020</p>
+        <h3 class="poem-mini-title">Sen tàn</h3>
+        <p class="poem-mini-excerpt">Ao thu lặng / hoa sen cuối mùa rũ / bùn vẫn thơm…</p>
+        <p class="poem-mini-meta">09 · 09 · 2020</p>
+      </a>
+      <a href="#poem-4" class="poem-card-mini">
+        <p class="poem-mini-tag">Văn xuôi thơ · 2021</p>
+        <h3 class="poem-mini-title">Người qua đường</h3>
+        <p class="poem-mini-excerpt">Ta gặp nhau một lần trên phố vắng, đủ để nhớ mãi, không đủ để gọi là gặp…</p>
+        <p class="poem-mini-meta">22 · 03 · 2021</p>
+      </a>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="#library" class="btn btn-secondary">Xem tất cả bài thơ / View all poems</a>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIBE -->
+<section class="subscribe-band" id="subscribe" aria-label="Đăng ký nhận thơ">
+  <div class="subscribe-content">
+    <p class="subscribe-eyebrow">Newsletter</p>
+    <h2 class="subscribe-title">Một bài <em>thơ mới</em> mỗi tuần</h2>
+    <p class="subscribe-desc">Đăng ký để nhận thơ Minh Đan vào hộp thư của bạn. Miễn phí. Không spam.<br><em style="font-size: 0.85rem; color: var(--brown-400);">A new poem in your inbox each week. Free. No spam.</em></p>
+
+    <form class="subscribe-form" onsubmit="handleSubscribe(event)" aria-label="Đăng ký email">
+      <label for="email-input" style="position:absolute;left:-9999px;">Email của bạn</label>
+      <input id="email-input" class="subscribe-input" type="email" placeholder="email@example.com" required autocomplete="email">
+      <button type="submit" class="subscribe-btn">Đăng ký</button>
+    </form>
+    <p class="subscribe-note">Bạn có thể hủy đăng ký bất cứ lúc nào.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand-name">Minh Đan</p>
+        <p class="footer-brand-tag">Nhà thơ · Poet</p>
+        <p class="footer-brand-desc">Không gian thơ song ngữ Việt – Anh, lưu giữ hơn 5,000 bài thơ qua 20 năm sáng tác.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Khám phá</p>
+        <ul>
+          <li><a href="#library">Thư viện</a></li>
+          <li><a href="#collections">Tập thơ</a></li>
+          <li><a href="#calendar">Lịch sáng tác</a></li>
+          <li><a href="#featured">Bài nổi bật</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Tham gia</p>
+        <ul>
+          <li><a href="#subscribe">Đăng ký nhận thơ</a></li>
+          <li><a href="#contribute">Đóng góp tác phẩm</a></li>
+          <li><a href="#conversations">Đối thoại văn học</a></li>
+          <li><a href="#support">Ủng hộ tác giả</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Liên hệ</p>
+        <ul>
+          <li><a href="#about">Về tác giả</a></li>
+          <li><a href="mailto:hello@minhdan.com">Email</a></li>
+          <li><a href="#" rel="noopener">Facebook</a></li>
+          <li><a href="#" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Minh Đan · Built with love & ink</p>
+      <p>Hosted on Cloudflare Pages</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleNav(btn) {
+    const links = document.getElementById('navLinks');
+    const isOpen = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+    btn.textContent = isOpen ? '✕' : '☰';
+  }
+  function handleSubscribe(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value;
+    alert('Cảm ơn bạn đã đăng ký với email: ' + email + '\n(Form sẽ kết nối tới Notion Subscribers DB ở phiên bản tiếp theo)');
+    e.target.reset();
+  }
+</script>
+
+</body>
+</html>
